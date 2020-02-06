@@ -28,6 +28,24 @@ def depthFirstSearch(al, node):
     return visited
     #return path #To return path based on requirement
 
+#Return True if there is a path from s to d
+def hasPath(s,d,alist):
+    visited, path = {n:False for n in alist.keys()}, []
+    stk = Stack()
+    stk.push(s)
+    visited[s] = True
+    while not stk.isEmpty():
+        t = stk.pop()
+        path.append(t)
+        if t==d:
+            return True
+            #return path --If we want to look at the exact path of traversal using Depth First Search
+        for n in alist[t]:
+            if not visited[n]:
+                stk.push(n)
+                visited[n] = True
+    return False
+    
 class Stack:
     def __init__(self):
         self.l = []
