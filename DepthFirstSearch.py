@@ -46,6 +46,25 @@ def hasPath(s,d,alist):
                 visited[n] = True
     return False
     
+#Return True if there is a cycle in Graph. This approach traverses whole graph and finds cycle, it will not stop if it found a cycle
+from collections import Counter as c
+def hasCycle(s,alist):
+    visited, path = {n:False for n in alist.keys()}, []
+    stk = Stack()
+    stk.push(s)
+    visited[s] = True
+    while not stk.isEmpty():
+        cur = stk.pop()
+        for n in alist[cur]:
+            if not visited[n]:
+                stk.push(n)
+        visited[cur] = True
+        path.append(cur)
+    for item in c(path).items():
+        if item[1]>1:
+            return True
+    return False
+
 class Stack:
     def __init__(self):
         self.l = []
