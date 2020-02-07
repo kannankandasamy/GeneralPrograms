@@ -65,6 +65,36 @@ def hasCycle(s,alist):
             return True
     return False
 
+
+#Adjacency Matrix approach for an undirected Graph:
+def convertToAdjacencyMatrix(graph, nodes):
+    am = []
+    for i in range(len(nodes)):
+        lis = []
+        for j in range(len(nodes)):
+            lis.append(0)
+        am.append(lis)
+    for node in graph:
+        am[node[0]][node[1]] = 1
+        am[node[1]][node[0]] = 1
+    return am
+
+#Returns traversal path
+def dfsMatrix(amat, s):
+    visited, path = {n:False for n in range(len(amat))}, []
+    stk = Stack()
+    stk.push(s)
+    while not stk.isEmpty():
+        cur = stk.pop()
+        for i,d in enumerate(amat[cur]):
+            if d == 1 and not visited[i]:
+                stk.push(i)
+        visited[cur] = True
+        path.append(cur)
+    return path
+
+
+
 class Stack:
     def __init__(self):
         self.l = []
@@ -84,4 +114,7 @@ class Stack:
     
     def printStack(self):
         return self.l
+    
+    
+    
     
